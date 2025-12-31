@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thriveiti - Admin Dashboard</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: #0a0a0a;
+            min-height: 100vh;
+            padding-bottom: 50px;
+        }
+
+        /* Header */
+        .header {
+            background: #000000;
+            border-bottom: 4px solid #ffffff;
+            padding: 30px;
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .brand-icon {
+            width: 60px;
+            height: 60px;
+            background: #ffffff;
+            border: 4px solid #000000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .brand-icon::after {
+            content: 'T';
+            font-size: 32px;
+            font-weight: 900;
+            color: #000000;
+        }
+
+        .brand-text h1 {
+            font-size: 28px;
+            font-weight: 900;
+            color: #ffffff;
+            letter-spacing: 3px;
+        }
+
+        .brand-text p {
+            font-size: 11px;
+            color: #999999;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .user-name {
+            font-size: 16px;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: 1px;
+        }
+
+        .logout-btn {
+            padding: 12px 24px;
+            background: #ffffff;
+            border: 3px solid #ffffff;
+            color: #000000;
+            font-size: 12px;
+            font-weight: 900;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .logout-btn:hover {
+            background: #000000;
+            color: #ffffff;
+            box-shadow: 4px 4px 0 #ffffff;
+            transform: translate(-2px, -2px);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Card */
+        .card {
+            background: #ffffff;
+            border: 4px solid #000000;
+            box-shadow: 8px 8px 0 #000000;
+            margin-bottom: 40px;
+        }
+
+        .card-header {
+            padding: 30px;
+            border-bottom: 4px solid #000000;
+        }
+
+        .card-header h2 {
+            font-size: 24px;
+            font-weight: 900;
+            color: #000000;
+            letter-spacing: -1px;
+            text-transform: uppercase;
+        }
+
+        .card-body {
+            padding: 30px;
+        }
+
+        /* Form */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-label {
+            font-size: 11px;
+            font-weight: 900;
+            color: #000000;
+            margin-bottom: 8px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="date"],
+        input[type="number"],
+        select {
+            padding: 14px;
+            border: 3px solid #000000;
+            background: #ffffff;
+            font-size: 14px;
+            font-weight: 600;
+            color: #000000;
+            transition: all 0.2s ease;
+        }
+
+        input:focus,
+        select:focus {
+            outline: none;
+            box-shadow: 4px 4px 0 #000000;
+            transform: translate(-2px, -2px);
+        }
+
+        .btn {
+            padding: 14px 24px;
+            background: #000000;
+            border: 3px solid #000000;
+            color: #ffffff;
+            font-size: 12px;
+            font-weight: 900;
+            letter-spacing: 1.5px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-transform: uppercase;
+        }
+
+        .btn:hover {
+            background: #333333;
+            box-shadow: 5px 5px 0 #000000;
+            transform: translate(-2px, -2px);
+        }
+
+        .btn:active {
+            transform: translate(0, 0);
+            box-shadow: none;
+        }
+
+        .btn-full {
+            width: 100%;
+            align-self: flex-end;
+        }
+
+        .btn-delete {
+            background: #000000;
+            padding: 8px 16px;
+            font-size: 10px;
+        }
+
+        .btn-delete:hover {
+            background: #ffffff;
+            color: #000000;
+            border-color: #000000;
+        }
+
+        .btn-approve {
+            background: #000000;
+            padding: 6px 12px;
+            font-size: 10px;
+            margin-right: 8px;
+        }
+
+        .btn-reject {
+            background: #ffffff;
+            color: #000000;
+            padding: 6px 12px;
+            font-size: 10px;
+        }
+
+        .btn-export {
+            background: #000000;
+            padding: 12px 20px;
+        }
+
+        /* Table */
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+
+        thead {
+            background: #000000;
+            color: #ffffff;
+        }
+
+        thead th {
+            padding: 16px;
+            text-align: left;
+            font-size: 11px;
+            font-weight: 900;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            border-bottom: 4px solid #000000;
+        }
+
+        tbody tr {
+            border-bottom: 2px solid #000000;
+            transition: all 0.2s ease;
+        }
+
+        tbody tr:hover {
+            background: #f5f5f5;
+        }
+
+        tbody td {
+            padding: 16px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #000000;
+        }
+
+        /* Status badges */
+        .status {
+            display: inline-block;
+            padding: 6px 12px;
+            border: 2px solid #000000;
+            font-size: 10px;
+            font-weight: 900;
+            letter-spacing: 1px;
+        }
+
+        .status-pending {
+            background: #ffffff;
+            color: #000000;
+        }
+
+        .status-approved {
+            background: #000000;
+            color: #ffffff;
+        }
+
+        .status-rejected {
+            background: #ffffff;
+            color: #000000;
+            text-decoration: line-through;
+        }
+
+        /* Filters */
+        .filters {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .filter-group {
+            display: flex;
+            gap: 15px;
+        }
+
+        /* Loading */
+        .loading {
+            text-align: center;
+            padding: 40px;
+            font-size: 14px;
+            font-weight: 700;
+            color: #000000;
+            letter-spacing: 1px;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #000000;
+            border-top-color: #ffffff;
+            border-radius: 0;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .form-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .filters {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .filter-group {
+                flex-direction: column;
+            }
+            
+            .card {
+                box-shadow: 4px 4px 0 #000000;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="brand">
+                <div class="brand-icon"></div>
+                <div class="brand-text">
+                    <h1>THRIVEITI</h1>
+                    <p>Admin Dashboard</p>
+                </div>
+            </div>
+            <div class="header-actions">
+                <span class="user-name" id="userName"></span>
+                <button class="logout-btn" onclick="logout()">LOGOUT</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Create Employee Card -->
+        <div class="card">
+            <div class="card-header">
+                <h2>Create New Employee</h2>
+            </div>
+            <div class="card-body">
+                <form id="createUserForm" class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label">Full Name</label>
+                        <input type="text" id="newFullName" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Username</label>
+                        <input type="text" id="newUsername" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Password</label>
+                        <input type="password" id="newPassword" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" style="opacity: 0;">Action</label>
+                        <button type="submit" class="btn btn-full">Create</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Change Password Card -->
+        <div class="card">
+            <div class="card-header">
+                <h2>Change My Password</h2>
+            </div>
+            <div class="card-body">
+                <form id="changePasswordForm" class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label">Current Password</label>
+                        <input type="password" id="currentPassword" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">New Password</label>
+                        <input type="password" id="newPassword" required minlength="6">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Confirm New Password</label>
+                        <input type="password" id="confirmPassword" required minlength="6">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" style="opacity: 0;">Action</label>
+                        <button type="submit" class="btn btn-full">Change Password</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Manage Employees Card -->
+        <div class="card">
+            <div class="card-header">
+                <h2>Manage Employees</h2>
+            </div>
+            <div class="card-body">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Full Name</th>
+                            <th>Username</th>
+                            <th>Created</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="employeesTable">
+                        <tr>
+                            <td colspan="4" class="loading">
+                                <div class="spinner"></div>
+                                Loading employees...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Monthly Totals Card -->
+        <div class="card">
+            <div class="card-header">
+                <h2>Monthly Commission Totals (Approved Only)</h2>
+            </div>
+            <div class="card-body">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Employee</th>
+                            <th>Month</th>
+                            <th>Total Commission</th>
+                            <th>Entries</th>
+                        </tr>
+                    </thead>
+                    <tbody id="monthlyTotalsTable">
+                        <tr>
+                            <td colspan="4" class="loading">
+                                <div class="spinner"></div>
+                                Loading monthly totals...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Add Commission for Employee Card -->
+        <div class="card">
+            <div class="card-header">
+                <h2>Add Commission for Employee (Manual Entry)</h2>
+            </div>
+            <div class="card-body">
+                <form id="adminCommissionForm" class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label">Select Employee</label>
+                        <select id="adminEmployeeSelect" required>
+                            <option value="">Choose Employee</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Sale Date</label>
+                        <input type="date" id="adminSaleDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Unlisted Sales (₹)</label>
+                        <input type="number" id="adminUnlisted" step="0.01" required oninput="calculateAdminCommission()">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Loans (₹)</label>
+                        <input type="number" id="adminLoans" step="0.01" required oninput="calculateAdminCommission()">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Third-Party Sales (₹)</label>
+                        <input type="number" id="adminThirdParty" step="0.01" required oninput="calculateAdminCommission()">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" style="opacity: 0;">Spacer</label>
+                        <div style="padding: 14px; background: #f5f5f5; border: 3px solid #000; font-weight: 900;">
+                            Commission: ₹<span id="adminCalculatedCommission">0.00</span>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn" style="grid-column: span 4;">Add Commission (Auto-Approved)</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- All Commissions Card -->
+        <div class="card">
+            <div class="card-header">
+                <div class="filters">
+                    <h2>All Commissions</h2>
+                    <div class="filter-group">
+                        <select id="employeeFilter" onchange="loadCommissions(); loadMonthlyTotals();">
+                            <option value="">All Employees</option>
+                        </select>
+                        <select id="timeFilter" onchange="loadCommissions(); loadMonthlyTotals();">
+                            <option value="1">This Month</option>
+                            <option value="3">Last 3 Months</option>
+                        </select>
+                        <button class="btn btn-export" onclick="exportToExcel()">Export</button>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Employee</th>
+                            <th>Date</th>
+                            <th>Unlisted</th>
+                            <th>Loans</th>
+                            <th>Third-Party</th>
+                            <th>Commission</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="commissionsTable">
+                        <tr>
+                            <td colspan="8" class="loading">
+                                <div class="spinner"></div>
+                                Loading commissions...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'https://commision-repo-6.onrender.com';
+        let token = localStorage.getItem('token');
+        let user = JSON.parse(localStorage.getItem('user'));
+
+        // Check auth
+        if (!token || !user || user.role !== 'admin') {
+            window.location.href = 'login.html';
+        }
+
+        document.getElementById('userName').textContent = user.full_name;
+
+        // Create user
+        document.getElementById('createUserForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const data = {
+                full_name: document.getElementById('newFullName').value,
+                username: document.getElementById('newUsername').value,
+                password: document.getElementById('newPassword').value,
+                role: 'employee'
+            };
+            
+            try {
+                const response = await fetch(`${API_BASE}/api/users/create`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify(data)
+                });
+                
+                if (!response.ok) throw new Error('Failed to create user');
+                
+                alert('Employee created successfully!');
+                document.getElementById('createUserForm').reset();
+                loadEmployees();
+                
+            } catch (error) {
+                alert('Error: ' + error.message);
+            }
+        });
+
+        // Change password
+        document.getElementById('changePasswordForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const currentPassword = document.getElementById('currentPassword').value;
+            const newPasswordVal = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            // Validate new password
+            if (newPasswordVal.length < 6) {
+                alert('New password must be at least 6 characters long');
+                return;
+            }
+            
+            if (newPasswordVal !== confirmPassword) {
+                alert('New passwords do not match!');
+                return;
+            }
+            
+            const data = {
+                current_password: currentPassword,
+                new_password: newPasswordVal
+            };
+            
+            try {
+                const response = await fetch(`${API_BASE}/api/auth/change-password`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify(data)
+                });
+                
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.detail || 'Failed to change password');
+                }
+                
+                alert('Password changed successfully! Please login again.');
+                logout();
+                
+            } catch (error) {
+                alert('Error: ' + error.message);
+            }
+        });
+
+        // Load employees
+        async function loadEmployees() {
+            try {
+                const response = await fetch(`${API_BASE}/api/users/employees`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                
+                const data = await response.json();
+                
+                // Update filter dropdown
+                const select = document.getElementById('employeeFilter');
+                select.innerHTML = '<option value="">All Employees</option>' +
+                    data.employees.map(emp => `<option value="${emp.id}">${emp.full_name}</option>`).join('');
+                
+                // Update admin commission form dropdown
+                const adminSelect = document.getElementById('adminEmployeeSelect');
+                adminSelect.innerHTML = '<option value="">Choose Employee</option>' +
+                    data.employees.map(emp => `<option value="${emp.id}">${emp.full_name}</option>`).join('');
+                
+                // Update employees table
+                const tbody = document.getElementById('employeesTable');
+                if (data.employees.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="4" class="loading">No employees found</td></tr>';
+                    return;
+                }
+                
+                tbody.innerHTML = data.employees.map(emp => `
+                    <tr>
+                        <td>${emp.full_name}</td>
+                        <td>${emp.username}</td>
+                        <td>-</td>
+                        <td>
+                            <button class="btn btn-delete" onclick="deleteEmployee(${emp.id}, '${emp.full_name}')">
+                                Delete
+                            </button>
+                        </td>
+                    </tr>
+                `).join('');
+                
+            } catch (error) {
+                console.error('Error loading employees:', error);
+            }
+        }
+
+        // Delete employee
+        async function deleteEmployee(userId, fullName) {
+            if (!confirm(`Delete ${fullName}?\n\nThis will also delete all their commissions.`)) {
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${API_BASE}/api/users/${userId}`, {
+                    method: 'DELETE',
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                
+                if (!response.ok) throw new Error('Failed to delete employee');
+                
+                alert(`${fullName} deleted successfully!`);
+                loadEmployees();
+                loadCommissions();
+                loadMonthlyTotals();
+                
+            } catch (error) {
+                alert('Error: ' + error.message);
+            }
+        }
+
+        // Calculate admin commission
+        function calculateAdminCommission() {
+            const unlisted = parseFloat(document.getElementById('adminUnlisted').value) || 0;
+            const loans = parseFloat(document.getElementById('adminLoans').value) || 0;
+            const thirdParty = parseFloat(document.getElementById('adminThirdParty').value) || 0;
+            
+            const commission = (loans / 3) + (unlisted / 3) + thirdParty;
+            document.getElementById('adminCalculatedCommission').textContent = commission.toFixed(2);
+        }
+
+        // Admin create commission
+        document.getElementById('adminCommissionForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const employeeId = document.getElementById('adminEmployeeSelect').value;
+            if (!employeeId) {
+                alert('Please select an employee');
+                return;
+            }
+            
+            const data = {
+                sale_date: document.getElementById('adminSaleDate').value,
+                unlisted_sales: parseFloat(document.getElementById('adminUnlisted').value),
+                loans: parseFloat(document.getElementById('adminLoans').value),
+                third_party_sales: parseFloat(document.getElementById('adminThirdParty').value)
+            };
+            
+            try {
+                const response = await fetch(`${API_BASE}/api/commissions/admin-create?employee_id=${employeeId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify(data)
+                });
+                
+                if (!response.ok) throw new Error('Failed to create commission');
+                
+                alert('Commission added successfully (Auto-Approved)!');
+                document.getElementById('adminCommissionForm').reset();
+                document.getElementById('adminCalculatedCommission').textContent = '0.00';
+                loadCommissions();
+                loadMonthlyTotals();
+                
+            } catch (error) {
+                alert('Error: ' + error.message);
+            }
+        });
+
+        // Load monthly totals
+        async function loadMonthlyTotals() {
+            const months = document.getElementById('timeFilter').value;
+            
+            try {
+                const response = await fetch(`${API_BASE}/api/commissions/monthly-totals?months=${months}`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                
+                const data = await response.json();
+                const tbody = document.getElementById('monthlyTotalsTable');
+                
+                if (data.totals.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="4" class="loading">No approved commissions found</td></tr>';
+                    return;
+                }
+                
+                tbody.innerHTML = data.totals.map(t => `
+                    <tr>
+                        <td>${t.employee_name}</td>
+                        <td>${t.month}</td>
+                        <td><strong>₹${t.total_commission.toFixed(2)}</strong></td>
+                        <td>${t.total_entries}</td>
+                    </tr>
+                `).join('');
+                
+            } catch (error) {
+                console.error('Error loading monthly totals:', error);
+            }
+        }
+
+        // Load commissions
+        async function loadCommissions() {
+            const months = document.getElementById('timeFilter').value;
+            const employeeId = document.getElementById('employeeFilter').value;
+            
+            let url = `${API_BASE}/api/commissions/all?months=${months}`;
+            if (employeeId) url += `&employee_id=${employeeId}`;
+            
+            try {
+                const response = await fetch(url, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                
+                const data = await response.json();
+                const tbody = document.getElementById('commissionsTable');
+                
+                if (data.commissions.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="8" class="loading">No commissions found</td></tr>';
+                    return;
+                }
+                
+                tbody.innerHTML = data.commissions.map(c => `
+                    <tr>
+                        <td>${c.employee_name}</td>
+                        <td>${c.sale_date}</td>
+                        <td>₹${c.unlisted_sales.toFixed(2)}</td>
+                        <td>₹${c.loans.toFixed(2)}</td>
+                        <td>₹${c.third_party_sales.toFixed(2)}</td>
+                        <td><strong>₹${c.calculated_commission.toFixed(2)}</strong></td>
+                        <td>
+                            <span class="status status-${c.status}">
+                                ${c.status.toUpperCase()}
+                            </span>
+                        </td>
+                        <td>
+                            ${c.status === 'pending' ? `
+                                <button class="btn btn-approve" onclick="updateStatus(${c.id}, 'approved')">
+                                    Approve
+                                </button>
+                                <button class="btn btn-reject" onclick="updateStatus(${c.id}, 'rejected')">
+                                    Reject
+                                </button>
+                            ` : `
+                                <span style="font-size: 11px; color: #666;">${c.status.toUpperCase()}</span>
+                            `}
+                        </td>
+                    </tr>
+                `).join('');
+                
+            } catch (error) {
+                alert('Error loading commissions: ' + error.message);
+            }
+        }
+
+        // Update status
+        async function updateStatus(commissionId, status) {
+            try {
+                const response = await fetch(`${API_BASE}/api/commissions/status`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ commission_id: commissionId, status })
+                });
+                
+                if (!response.ok) throw new Error('Failed to update status');
+                
+                loadCommissions();
+                loadMonthlyTotals();
+                
+            } catch (error) {
+                alert('Error: ' + error.message);
+            }
+        }
+
+        // Export to Excel
+        async function exportToExcel() {
+            const months = document.getElementById('timeFilter').value;
+            const employeeId = document.getElementById('employeeFilter').value;
+            
+            let url = `${API_BASE}/api/commissions/export?months=${months}`;
+            if (employeeId) url += `&employee_id=${employeeId}`;
+            
+            try {
+                const response = await fetch(url, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                
+                const blob = await response.blob();
+                const downloadUrl = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = downloadUrl;
+                a.download = `thriveiti_commissions_${new Date().toISOString().split('T')[0]}.csv`;
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+                
+            } catch (error) {
+                alert('Error exporting: ' + error.message);
+            }
+        }
+
+        function logout() {
+            fetch(`${API_BASE}/api/auth/logout`, {
+                method: 'POST',
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            localStorage.clear();
+            window.location.href = 'login.html';
+        }
+
+        // Initial load
+        loadEmployees();
+        loadCommissions();
+        loadMonthlyTotals();
+    </script>
+</body>
+</html>
