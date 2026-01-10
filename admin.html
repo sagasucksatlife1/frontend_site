@@ -798,7 +798,7 @@
                     float effect = 1.0 - smoothstep(0.0, mouseRadius, dist);
                     f -= 0.5 * effect;
                 }
-                vec3 col = mix(vec3(0.0), waveColor, f);
+                vec3 col = mix(vec3(0.95, 0.95, 0.95), vec3(1.0, 0.44, 0.0), f);
                 gl_FragColor = vec4(col, 1.0);
             }
         `;
